@@ -38,17 +38,17 @@ int thermoCLK = 5;
 bool partida= true; // start incial centelha
 MAX6675 thermocouple(thermoCLK, thermoCS, thermoDO);
 ///////////////////pinos///////////////////////////////////////
-#define botton 12
-#define led1 36
-#define led2 39
-#define reler 34
-bool estado=0,botaoEstadoAnterior=1,piscar=0;
+#define botton 12 // botão de ligar e desligar
+#define led1 36 // led sinalizador ligado
+#define led2 39 // led sinalizador desligador
+#define reler 34 // pino de ligar os reler
+bool estado=0,botaoEstadoAnterior=1,piscar=0; //vaiaveis para controle de tempo e  estado
 unsigned long ultimoTempo,ultimoTempo01,ultimoTempo02;
 int debounce=1000,leituraBotao;
 ////////////////////////servo motor/////////////////////////////////////////////
-int n=0;
-int pos=0;
-#define Gas 35
+int n=0; //pode apgar
+int pos=0; //posição do servo motor
+#define Gas 35  // pino de leitura 
 int tempoPartida=2000; //define o tempo que os reler ficara acionado
 unsigned long tempoAnterior01;
 int timerNews=1000;
@@ -58,7 +58,6 @@ void setup()
 {
   Serial.begin(115200);
   SerialBT.begin(device_name);  //Bluetooth device name
-  //SerialBT.deleteAllBondedDevices(); // Uncomment this to delete paired devices; Must be called after begin
   Serial.printf("ligando systema");
   
   
@@ -105,7 +104,7 @@ void start(){
   digitalWrite(led2,LOW); 
  if(i==1){
   SerialBT.println("maquina iniciada manualmente");
- i=0;
+   i=0;
  }
  
  if((millis()-ultimoTempo01)>timerNews){
@@ -139,7 +138,6 @@ void start(){
  }
 
 void desligar(){
-  //Serial.println("Desligado");
  digitalWrite(reler,HIGH);
  digitalWrite(led2,HIGH);
  digitalWrite(led1,LOW);  
